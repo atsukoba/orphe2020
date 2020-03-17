@@ -1,0 +1,17 @@
+version: "3.7"
+services:
+  osc-sender:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    user: root
+    ports:
+      - "8888:8888/udp"
+      - "5050:5050/udp"
+      - "4040:4040/udp"
+    volumes:
+      - .:/usr/src/app
+    working_dir: /usr/src/app
+    environment:
+      GRANT_SUDO: "yes"
+    command: hcitool lescan | grep "HRM sensor V24"
